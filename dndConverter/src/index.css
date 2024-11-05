@@ -83,8 +83,8 @@
   .content-container {
     @apply flex flex-col 
     bg-gray-300 dark:bg-gray-700
-    m-0 
-    h-full w-full 
+    m-0
+    h-full w-full
     overflow-hidden;
   }
 
@@ -230,8 +230,10 @@
 
 /* Main content styles */
 .content-container {
-  margin-left: 250px; /* Adjust the margin to match the sidebar width */
+  margin-left: 64px; /* Adjust the margin to match the sidebar width */
   padding: 20px;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+  /* background-color: 36393f; */
 }
 
 /* Card styles */
@@ -239,7 +241,7 @@
   position: relative;
   border: 1px solid #ccc;
   padding: 16px;
-  margin: 16px;
+  margin: 34px;
   cursor: pointer;
   transition: transform 0.2s;
   background-color: #444454; /* Add background color */
@@ -264,11 +266,11 @@
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #37373bc9;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
-  max-width: 600px;
+  max-width: 1200;
   position: relative;
 }
 
