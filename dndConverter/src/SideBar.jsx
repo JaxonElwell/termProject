@@ -8,13 +8,13 @@ const SideBar = () => {
     <div className="fixed top-0 left-0 h-screen w-16 flex flex-col
                   bg-white dark:bg-gray-900 shadow-lg">
                     
-        <SideBarIcon icon={<FaHome size="28" />} />
+        <SideBarIcon icon={<FaHome size="28" />} text = 'Home'/>
         <Divider />
-        <SideBarIcon icon={<BsPlus size="38" />} />
-        <SideBarIcon icon={<BsFillCollectionFill  size="28" />} />
+        <SideBarIcon icon={<BsPlus size="38" />} text = 'Add Creature'/>
+        <SideBarIcon icon={<BsFillCollectionFill  size="28" />} text = 'Collection'/>
         <Divider />
-        <SideBarIcon icon={<IoPersonSharp size="28" />} />
-        <SideBarIcon icon={<BsGearFill size="28" />} />
+        <SideBarIcon icon={<IoPersonSharp size="28" />} text = 'Profile'/>
+        <SideBarIcon icon={<BsGearFill size="28" />} text = 'Settings'/>
     </div>
   );
 };
