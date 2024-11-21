@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TopNavigation from './TopNavigation';
 
+
 const Add = () => {
   const [name, setName] = useState('');
   const [stats, setStats] = useState({
@@ -66,7 +67,7 @@ const Add = () => {
   };
 
   return (
-    <div className='content-container'>
+    <div className='content-container w-full overflow-auto'>
       <TopNavigation />
       <div className='form-container'>
         <h1 className='text-2xl font-bold mb-4'>Add DnD 5e Creature</h1>
