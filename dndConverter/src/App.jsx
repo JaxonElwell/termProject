@@ -4,6 +4,7 @@ import SideBar from './SideBar';
 import ContentContainer from './Content';
 import Add from './Add';
 import Profile from './Profile';
+import Collection from './Collection';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<ContentContainer />} />
           <Route path="/add" element={<Add />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/collection" element={<Collection />} />
         </Routes>
       </div>
     </div>

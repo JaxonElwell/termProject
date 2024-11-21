@@ -1,24 +1,24 @@
-import {
-    FaSearch,
-    FaRegBell,
-    FaUserCircle,
-    FaMoon,
-    FaSun,
-  } from 'react-icons/fa';
-  import useDarkMode from './Hooks/UseDarkMode';
-  
-  const TopNavigation = () => {
-    return (
-      <div className='top-navigation'>
-        <Title />
-        <ThemeIcon />
-        <Search />
-        <BellIcon />
-        <UserCircle />
-      </div>
-    );
+import React from 'react';
+import { FaSun, FaMoon, FaSearch, FaRegBell, FaUserCircle } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
+import useDarkMode from './Hooks/useDarkMode';
+
+const TopNavigation = () => {
+  const location = useLocation();
+
+  const getTitle = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Home';
+      case '/add':
+        return 'Add Creature';
+      case '/profile':
+        return 'Profile';
+      default:
+        return 'DnD 5e to Pf2e';
+    }
   };
-  
+
   const ThemeIcon = () => {
     const [darkTheme, setDarkTheme] = useDarkMode();
     const handleMode = () => setDarkTheme(!darkTheme);
@@ -32,15 +32,27 @@ import {
       </span>
     );
   };
-  
+
   const Search = () => (
     <div className='search'>
-      <input className='search-input' type='text' placeholder='Search...' />
+      <input className='search-input' type='text' placeholder='Search Your Creatures...' />
       <FaSearch size='18' className='text-secondary my-auto' />
     </div>
   );
+
   const BellIcon = () => <FaRegBell size='24' className='top-navigation-icon' />;
   const UserCircle = () => <FaUserCircle size='24' className='top-navigation-icon' />;
-  const Title = () => <h5 className='title-text'>DnD 5e to Pf2e</h5>;
-  
-  export default TopNavigation;
+  const Title = () => <h5 className='title-text'>{getTitle()}</h5>;
+
+  return (
+    <div className='top-navigation'>
+      <Title />
+      <Search />
+      <ThemeIcon />
+      <BellIcon />
+      <UserCircle />
+    </div>
+  );
+};
+
+export default TopNavigation;

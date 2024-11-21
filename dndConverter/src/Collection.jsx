@@ -31,10 +31,18 @@
 
 // export default Collection;
 
-import React from 'react';
+import React, { useState } from 'react';
+import TopNavigation from './TopNavigation';
 
+// temporary page for testing, just to see if the TopNavigation component works
+// only displays the TopNavigation component and the name of the page
 const Collection = () => {
-  return <div>Collection Page</div>;
+  return (
+    <div className='content-container w-full overflow-auto'>
+      <TopNavigation />
+      <h1>Collection</h1>
+    </div>
+  );
 };
 
 export default Collection;
