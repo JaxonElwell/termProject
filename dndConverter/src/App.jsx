@@ -5,6 +5,7 @@ import ContentContainer from './Content';
 import Add from './Add';
 import Profile from './Profile';
 import Collection from './Collection';
+import UserList from './UserList';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/collection" element={<Collection />} />
         </Routes>
       </div>
+      {/* <UserList /> */}
     </div>
   );
 }

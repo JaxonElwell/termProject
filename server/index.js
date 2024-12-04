@@ -18,18 +18,13 @@ const db = new sqlite3.Database('./database.db', (err) => {
 });
 
 // API endpoints
-app.get('/users', (req, res) => {
-    const sql = `
-        SELECT * FROM users
-    `;
-    db.all(sql, [], (err, rows) => {
+app.get('/api/users', (req, res) => {
+    db.all('SELECT * FROM users', [], (err, rows) => {
         if (err) {
-            console.error(err.message);
-            res.status(400).send({'Internal server error'});
+            res.status(400).json({error: err.message});
+            return;
         }
-        else {
-            res.json({rows});
-        }
+        res.json({data: rows});
     });
 });
 
