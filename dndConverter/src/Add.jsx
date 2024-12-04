@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import TopNavigation from './TopNavigation';
 
-
 const Add = () => {
   const [name, setName] = useState('');
   const [stats, setStats] = useState({
-    cr: '',
+    size: '',
     ac: '',
     hp: '',
     speed: '',
+    climbSpeed: '',
+    flySpeed: '',
     proficiencyBonus: '',
     strength: '',
     dexterity: '',
     constitution: '',
     intelligence: '',
     wisdom: '',
-    charisma: ''
+    charisma: '',
+    cr: '',
+    notes: ''
   });
   const [convertedCreatures, setConvertedCreatures] = useState([]);
 
@@ -34,17 +37,21 @@ const Add = () => {
     setConvertedCreatures([...convertedCreatures, converted]);
     setName('');
     setStats({
-      cr: '',
+      size: '',
       ac: '',
       hp: '',
       speed: '',
+      climbSpeed: '',
+      flySpeed: '',
       proficiencyBonus: '',
       strength: '',
       dexterity: '',
       constitution: '',
       intelligence: '',
       wisdom: '',
-      charisma: ''
+      charisma: '',
+      cr: '',
+      notes: ''
     });
   };
 
@@ -52,17 +59,21 @@ const Add = () => {
     // This is a placeholder implementation
     return {
       name,
-      cr: stats.cr,
+      size: stats.size,
       ac: stats.ac,
       hp: stats.hp,
       speed: stats.speed,
+      climbSpeed: stats.climbSpeed,
+      flySpeed: stats.flySpeed,
       proficiencyBonus: stats.proficiencyBonus,
       strength: stats.strength * 2,
       dexterity: stats.dexterity * 2,
       constitution: stats.constitution * 2,
       intelligence: stats.intelligence * 2,
       wisdom: stats.wisdom * 2,
-      charisma: stats.charisma * 2
+      charisma: stats.charisma * 2,
+      cr: stats.cr,
+      notes: stats.notes
     };
   };
 
@@ -70,75 +81,91 @@ const Add = () => {
     <div className='content-container w-full overflow-auto'>
       <TopNavigation />
       <div className='form-container'>
-        <h1 className='text-2xl font-bold mb-4'>Add DnD 5e Creature</h1>
-        <form onSubmit={handleSubmit} className='space-y-2'>
+        {/* <h1 className='text-3xl font-bold text-cyan-500 mb-4'>Add DnD 5e Creature</h1> */}
+        <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='mx-auto max-w-3xl'>
             <div>
-              <label className='block text-sm font-semibold text-cyan-500'>Name:</label>
+              <label className='block text-xl font-bold text-cyan-500'>Name:</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className='mt-1 block w-full px-2 py-1 bg-gray-500 border bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                className='mt-1 block w-full px-3 py-2 bg-gray-500 border bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
               />
             </div>
+            <div>
+              <label className='block text-sm font-semibold text-gray-500'>Size:</label>
+              <input
+                type="text"
+                name="size"
+                value={stats.size}
+                onChange={handleInputChange}
+                required
+                className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              />
+            </div>
+            <hr className='border-t-2 border-gray-300 my-2' />
+            <div>
+              <label className='block text-sm font-semibold text-cyan-500'>Armor Class:</label>
+              <input
+                type="number"
+                name="ac"
+                value={stats.ac}
+                onChange={handleInputChange}
+                required
+                className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              />
+            </div>
+            <div>
+              <label className='block text-sm font-semibold text-cyan-500'>Hit Points:</label>
+              <input
+                type="number"
+                name="hp"
+                value={stats.hp}
+                onChange={handleInputChange}
+                required
+                className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              />
+            </div>
+            
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2'>
+            <div>
+              <label className='block text-sm font-semibold text-cyan-500'>Speed:</label>
+              <input
+                type="number"
+                name="speed"
+                value={stats.speed}
+                onChange={handleInputChange}
+                required
+                className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              />
+            </div>
               <div>
-                <label className='block text-sm font-semibold text-cyan-500'>CR:</label>
+                <label className='block text-sm font-semibold text-cyan-500'>Climb Speed:</label>
                 <input
                   type="number"
-                  name="cr"
-                  value={stats.cr}
+                  name="climbSpeed"
+                  value={stats.climbSpeed}
                   onChange={handleInputChange}
                   required
                   className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
                 />
               </div>
               <div>
-                <label className='block text-sm font-semibold text-cyan-500'>AC:</label>
+                <label className='block text-sm font-semibold text-cyan-500'>Fly Speed:</label>
                 <input
                   type="number"
-                  name="ac"
-                  value={stats.ac}
+                  name="flySpeed"
+                  value={stats.flySpeed}
                   onChange={handleInputChange}
                   required
                   className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
                 />
               </div>
-              <div>
-                <label className='block text-sm font-semibold text-cyan-500'>HP:</label>
-                <input
-                  type="number"
-                  name="hp"
-                  value={stats.hp}
-                  onChange={handleInputChange}
-                  required
-                  className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-                />
-              </div>
-              <div>
-                <label className='block text-sm font-semibold text-cyan-500'>Speed:</label>
-                <input
-                  type="number"
-                  name="speed"
-                  value={stats.speed}
-                  onChange={handleInputChange}
-                  required
-                  className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-                />
-              </div>
-              <div>
-                <label className='block text-sm font-semibold text-cyan-500'>Proficiency Bonus:</label>
-                <input
-                  type="number"
-                  name="proficiencyBonus"
-                  value={stats.proficiencyBonus}
-                  onChange={handleInputChange}
-                  required
-                  className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-                />
-              </div>
+            </div>
+            <hr className='border-t-2 border-gray-300 my-2' />
+            <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2'>
               <div>
                 <label className='block text-sm font-semibold text-cyan-500'>Strength:</label>
                 <input
@@ -206,6 +233,41 @@ const Add = () => {
                 />
               </div>
             </div>
+            <hr className='border-t-2 border-gray-300 my-2' />
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+              <div>
+                <label className='block text-sm font-semibold text-cyan-500'>Challenge Rating:</label>
+                <input
+                  type="number"
+                  name="cr"
+                  value={stats.cr}
+                  onChange={handleInputChange}
+                  required
+                  className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                />
+              </div>
+              <div>
+                <label className='block text-sm font-semibold text-cyan-500'>Proficiency Bonus:</label>
+                <input
+                  type="number"
+                  name="proficiencyBonus"
+                  value={stats.proficiencyBonus}
+                  onChange={handleInputChange}
+                  required
+                  className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                />
+              </div>
+            </div>
+            <hr className='border-t-2 border-gray-300 my-2' />
+            <div>
+              <label className='block text-sm font-semibold text-cyan-500'>Notes:</label>
+              <textarea
+                name="notes"
+                value={stats.notes}
+                onChange={handleInputChange}
+                className='mt-1 block w-full px-2 py-1 bg-gray-500 bg-opacity-90 border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              />
+            </div>
             <div className='flex justify-center mt-4'>
               <button type="submit" className='px-4 py-2 bg-cyan-700 text-white rounded-md shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
                 Convert to Pf2e
@@ -218,16 +280,30 @@ const Add = () => {
           <div className='mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             {convertedCreatures.map((creature, index) => (
               <div key={index} className='card'>
-                <h2 className='text-xl font-bold mb-2'>{creature.name}</h2>
+                <h2 className='text-xl font-bold text-cyan-500 mb-2'>{creature.name}</h2>
+                <p className='text-sm font-semibold text-gray-500'>{creature.size}</p>
                 <hr className='border-t-2 border-gray-300 my-2' />
-                <p><strong>Perception:</strong> {10 + (creature.wisdom)}</p>
-                <p><strong>Skills:</strong> {creature.skills}</p>
-                <p><strong>Str:</strong> {creature.strength}, <strong>Dex:</strong> {creature.dexterity}, <strong>Con:</strong> {creature.constitution}, <strong>Int:</strong> {creature.intelligence}, <strong>Wis:</strong> {creature.wisdom}, <strong>Char:</strong> {creature.charisma}</p>
+                <p><strong>Armor Class:</strong> {creature.ac}</p>
+                <p><strong>Hit Points:</strong> {creature.hp}</p>
+                <div className='grid grid-cols-1 sm:grid-cols-3 gap-2'>
+                  <p><strong>Speed:</strong> {creature.speed}</p>
+                  <p><strong>Climb Speed:</strong> {creature.climbSpeed}</p>
+                  <p><strong>Fly Speed:</strong> {creature.flySpeed}</p>
+                </div>
                 <hr className='border-t-2 border-gray-300 my-2' />
-                <p><strong>AC:</strong> {creature.ac}</p>
-                <p><strong>HP:</strong> {creature.hp}</p>
+                <p><strong>Str:</strong> {creature.strength}, <strong>Dex:</strong> {creature.dexterity}, <strong>Con:</strong> {creature.constitution}, <strong>Int:</strong> {creature.intelligence}, <strong>Wis:</strong> {creature.wisdom}, <strong>Cha:</strong> {creature.charisma}</p>
                 <hr className='border-t-2 border-gray-300 my-2' />
-                <p><strong>Speed:</strong> {creature.speed}</p>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                  <p><strong>Challenge Rating:</strong> {creature.cr}</p>
+                  <p><strong>Proficiency Bonus:</strong> {creature.proficiencyBonus}</p>
+                </div>
+                <hr className='border-t-2 border-gray-300 my-2' />
+                <p><strong>Notes:</strong> {creature.notes.length > 100 ? `${creature.notes.substring(0, 100)}...` : creature.notes}</p>
+                <div className='flex justify-center mt-4'>
+                  <button onClick={() => addCreatureToDB(creature)} className='px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'>
+                    Save
+                  </button>
+                </div>
               </div>
             ))}
           </div>
