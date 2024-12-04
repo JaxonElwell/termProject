@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TopNavigation from './TopNavigation';
+import { addCreature } from './Api'; // Import the addCreature function
 
 const Add = () => {
   const [name, setName] = useState('');
@@ -77,11 +78,38 @@ const Add = () => {
     };
   };
 
+  const handleSave = async (creature) => {
+    const data = {
+      userId: 1, // Replace with the actual user ID
+      name: creature.name,
+      cr: creature.cr,
+      ac: creature.ac,
+      hp: creature.hp,
+      speed: creature.speed,
+      climbSpeed: creature.climbSpeed,
+      flySpeed: creature.flySpeed,
+      strength: creature.strength,
+      dexterity: creature.dexterity,
+      constitution: creature.constitution,
+      intelligence: creature.intelligence,
+      wisdom: creature.wisdom,
+      charisma: creature.charisma,
+      notes: creature.notes
+    };
+
+    try {
+      await addCreature(data);
+      console.log('Creature saved successfully');
+    } catch (error) {
+      console.error('Error saving creature:', error);
+    }
+  };
+
   return (
     <div className='content-container w-full overflow-auto'>
       <TopNavigation />
       <div className='form-container'>
-        {/* <h1 className='text-3xl font-bold text-cyan-500 mb-4'>Add DnD 5e Creature</h1> */}
+        <h1 className='text-3xl font-bold text-cyan-500 mb-4'>Add DnD 5e Creature</h1>
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='mx-auto max-w-3xl'>
             <div>
@@ -300,7 +328,7 @@ const Add = () => {
                 <hr className='border-t-2 border-gray-300 my-2' />
                 <p><strong>Notes:</strong> {creature.notes.length > 100 ? `${creature.notes.substring(0, 100)}...` : creature.notes}</p>
                 <div className='flex justify-center mt-4'>
-                  <button onClick={() => addCreatureToDB(creature)} className='px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'>
+                  <button onClick={() => handleSave(creature)} className='px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'>
                     Save
                   </button>
                 </div>
