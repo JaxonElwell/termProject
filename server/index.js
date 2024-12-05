@@ -1,9 +1,11 @@
 const express = require('express');
-const app = express();
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const creatureRoutes = require('./routes/creatureRoutes'); // Adjust path if needed
 
-// Middlware
+const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -11,21 +13,20 @@ app.use(express.json());
 const db = new sqlite3.Database('./database.db', (err) => {
     if (err) {
         console.error(err.message);
-    }
-    else {
+    } else {
         console.log('Connected to the database.');
     }
 });
 
-// API endpoints
-app.get('/api/users', (req, res) => {
-    db.all('SELECT * FROM users', [], (err, rows) => {
-        if (err) {
-            res.status(400).json({error: err.message});
-            return;
-        }
-        res.json({data: rows});
-    });
+// Export the database for use in routes
+module.exports = db;
+
+// Register routes
+app.use(creatureRoutes);
+
+// Handle undefined routes
+app.use((req, res, next) => {
+    res.status(404).send('Route not found');
 });
 
 // Start the server
