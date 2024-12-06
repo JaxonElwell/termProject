@@ -49,4 +49,18 @@ router.get('/api/creatures/:userId', (req, res) => {
     });
 });
 
+// Get all creatures regardless of user
+router.get('/api/creatures', (req, res) => {
+    console.log('Received request to get all creatures'); // Log the request
+    Creature.getCreaturesAll((err, creatures) => {
+        if (err) {
+            console.error('Error getting creatures:', err);
+            res.status(500).send('Error getting creatures');
+        } else {
+            console.log('Creatures retrieved successfully:', creatures); // Log the retrieved creatures
+            res.status(200).json(creatures);
+        }
+    });
+});
+
 module.exports = router;

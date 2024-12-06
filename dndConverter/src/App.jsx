@@ -6,6 +6,7 @@ import Add from './Add';
 import Profile from './Profile';
 import Collection from './Collection';
 import UserList from './UserList';
+import Login from './Login';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/collection" element={<Collection />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
       {/* <UserList /> */}

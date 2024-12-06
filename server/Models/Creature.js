@@ -36,8 +36,21 @@ function getCreatures(userId, callback) {
     });
 }
 
+// Get all creatures regardless of user
+function getCreaturesAll(callback) {
+    db.all(`SELECT * FROM creatures`, (err, rows) => {
+        if (err) {
+            console.error("Error getting creatures", err.message);
+            callback(err);
+        } else {
+            callback(null, rows);
+        }
+    });
+}
+
 module.exports = {
     createCreature,
     getCreature,
-    getCreatures
+    getCreatures,
+    getCreaturesAll
 };

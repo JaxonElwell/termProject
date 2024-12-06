@@ -109,7 +109,7 @@ const Add = () => {
     <div className='content-container w-full overflow-auto'>
       <TopNavigation />
       <div className='form-container'>
-        <h1 className='text-3xl font-bold text-cyan-500 mb-4'>Add DnD 5e Creature</h1>
+        {/* <h1 className='text-3xl font-bold text-cyan-500 mb-4'>Add DnD 5e Creature</h1> */}
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='mx-auto max-w-3xl'>
             <div>
@@ -123,7 +123,7 @@ const Add = () => {
               />
             </div>
             <div>
-              <label className='block text-sm font-semibold text-gray-500'>Size:</label>
+              <label className='block text-sm font-semibold text-cyan-500'>Size:</label>
               <input
                 type="text"
                 name="size"

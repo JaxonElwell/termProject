@@ -11,10 +11,12 @@ const TopNavigation = () => {
       case '/':
         return 'Home';
       case '/add':
-        return 'Add Creature';
+        return 'Add A Creature';
       case '/profile':
         return 'Profile';
       default:
+        case '/collection':
+        return 'Creature Collection';
         return 'DnD 5e to Pf2e';
     }
   };

@@ -28,7 +28,16 @@ export const getCreature = async (userId, name) => {
 
 // Get all creatures
 export const getCreatures = async (userId) => {
-    const response = await fetch(`${API_BASE_URL}/api/creatures/${userId}`);
+    const response = await fetch(`${API_BASE_URL}/api/creature/${userId}`);
+    if (!response.ok) {
+        throw new Error(`Failed to get creatures: ${response.statusText}`);
+    }
+    return await response.json();
+};
+
+// Get all creatures regardless of user
+export const getCreaturesAll = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/creatures`);
     if (!response.ok) {
         throw new Error(`Failed to get creatures: ${response.statusText}`);
     }
