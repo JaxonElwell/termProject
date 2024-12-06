@@ -63,4 +63,24 @@ router.get('/api/creatures', (req, res) => {
     });
 });
 
+// Login endpoint
+router.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    db.get(
+        `SELECT id FROM users WHERE username = ? AND password = ?`,
+        [username, password],
+        (err, row) => {
+            if (err) {
+                console.error('Error logging in:', err.message);
+                res.status(500).send('Internal server error');
+            } else if (row) {
+                res.json({ userId: row.id });
+            } else {
+                res.status(400).send('Invalid username or password');
+            }
+        }
+    );
+});
+
 module.exports = router;

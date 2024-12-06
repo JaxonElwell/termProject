@@ -1,44 +1,66 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import SideBar from './SideBar';
-import ContentContainer from './Content';
+import Home from './Home';
 import Add from './Add';
 import Profile from './Profile';
 import Collection from './Collection';
-import UserList from './UserList';
 import Login from './Login';
+
+// Helper function to check if the user is logged in
+const isAuthenticated = () => {
+  const userId = localStorage.getItem('userId');
+  return !!userId; // Returns true if userId exists
+};
+
+// ProtectedRoute component
+const ProtectedRoute = ({ element }) => {
+  return isAuthenticated() ? element : <Navigate to="/login" />;
+};
 
 export default function App() {
   return (
     <div className="flex">
-      <SideBar />
       <div className="flex w-full">
         <Routes>
-          <Route path="/" element={<ContentContainer />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/collection" element={<Collection />} />
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+
+          {/* Protected routes */}
+          <Route path="/add" element={<ProtectedRoute element={<Add />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/collection" element={<ProtectedRoute element={<Collection />} />} />
         </Routes>
       </div>
-      {/* <UserList /> */}
+      <SideBar />
     </div>
   );
 }
 
+
+// import React from 'react';
+// import { Routes, Route } from 'react-router-dom';
 // import SideBar from './SideBar';
-// import ContentContainer from './Content';
+// import Home from './Home';
 // import Add from './Add';
-// import ScrollableComponent from './ScrollAdd';
+// import Profile from './Profile';
+// import Collection from './Collection';
+// import Login from './Login';
 
 // export default function App() {
 //   return (
 //     <div className="flex">
-//       {/* <ChannelBar /> */}
+//       <div className="flex w-full">
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/add" element={<Add />} />
+//           <Route path="/profile" element={<Profile />} />
+//           <Route path="/collection" element={<Collection />} />
+//           <Route path="/login" element={<Login />} />
+//         </Routes>
+//       </div>
 //       <SideBar />
-//       {/* <ContentContainer /> */}
-//       <Add />
-//       {/* <ScrollableComponent /> */}
 //     </div>
-//   )
+//   );
 // }

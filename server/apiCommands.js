@@ -123,9 +123,9 @@ function createUser(username, password, callback) {
     });
 }
 
-// Get a user by username
-function getUser(username, callback) {
-    db.get(`SELECT * FROM users WHERE username = ?`, [username], (err, row) => {
+// Get a user by username and password
+function getUser(username, password, callback) {
+    db.get(`SELECT * FROM users WHERE username = ? AND password = ?`, [username, password], (err, row) => {
         if (err) {
             console.error("Error getting user", err.message);
             callback(err);
