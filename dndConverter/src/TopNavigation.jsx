@@ -49,10 +49,10 @@ const TopNavigation = () => {
   return (
     <div className='top-navigation'>
       <Title />
-      <Search />
+      {/* <Search />
       <ThemeIcon />
       <BellIcon />
-      <UserCircle />
+      <UserCircle /> */}
     </div>
   );
 };

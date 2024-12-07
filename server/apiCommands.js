@@ -87,8 +87,8 @@ function updateCreature(userId, name, cr, ac, speed, clmbSpeed, flySpeed, str, d
 }
 
 // Delete a creature
-function deleteCreature(userId, name, callback) {
-    db.run(`DELETE FROM creatures WHERE user_id = ? AND name = ?`, [userId, name], (err) => {
+function deleteCreature(id, callback) {
+    db.run(`DELETE FROM creatures WHERE id = ?`, [id], (err) => {
         if (err) {
             console.error("Error deleting creature", err.message);
             callback(err);
@@ -134,6 +134,18 @@ function getUserById(userId, callback) {
     });
 }
 
+// Delete all creatures for a user
+function deleteAllCreaturesForUser(userId, callback) {
+    db.run(`DELETE FROM creatures WHERE user_id = ?`, [userId], (err) => {
+        if (err) {
+            console.error("Error deleting creatures", err.message);
+            callback(err);
+        } else {
+            callback(null);
+        }
+    });
+}
+
 module.exports = {
     getCreatures,
     getCreature,
@@ -143,5 +155,6 @@ module.exports = {
     deleteCreature,
     createUser,
     getUserById,
-    getUser
+    getUser,
+    deleteAllCreaturesForUser
 };

@@ -1,25 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const Creature = require('../Models/Creature'); // Ensure this path is correct
+const { createCreature, getCreature, getCreatures, getCreaturesAll, deleteCreature } = require('../apiCommands');
 
-// Create a creature
+// Add a creature
 router.post('/api/creature', (req, res) => {
     const { userId, name, cr, ac, hp, speed, climbSpeed, flySpeed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes } = req.body;
-
-    Creature.createCreature(userId, name, cr, ac, hp, speed, climbSpeed, flySpeed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes, (err) => {
+    createCreature(userId, name, cr, ac, hp, speed, climbSpeed, flySpeed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes, (err) => {
         if (err) {
             console.error('Error adding creature:', err);
-            return res.status(500).json({ error: 'Error adding creature' });
+            return res.status(500).send('Error adding creature');
         }
-        res.status(201).json({ message: 'Creature added successfully' });
+        res.status(200).send('Creature added successfully');
     });
 });
 
+// Get a creature
+router.get('/api/creature/:userId/:name', (req, res) => {
+    const { userId, name } = req.params;
+    getCreature(userId, name, (err, creature) => {
+        if (err) {
+            console.error('Error getting creature:', err);
+            return res.status(500).send('Error getting creature');
+        }
+        res.status(200).json(creature);
+    });
+});
 
-// Get all creatures for a specific user
-router.get('/api/creatures/:userId', (req, res) => {
+// Get all creatures for a user
+router.get('/api/creature/:userId', (req, res) => {
     const { userId } = req.params;
-    Creature.getCreatures(userId, (err, creatures) => {
+    getCreatures(userId, (err, creatures) => {
         if (err) {
             console.error('Error getting creatures:', err);
             return res.status(500).send('Error getting creatures');
@@ -30,7 +40,7 @@ router.get('/api/creatures/:userId', (req, res) => {
 
 // Get all creatures regardless of user
 router.get('/api/creatures', (req, res) => {
-    Creature.getCreaturesAll((err, creatures) => {
+    getCreaturesAll((err, creatures) => {
         if (err) {
             console.error('Error getting creatures:', err);
             return res.status(500).send('Error getting creatures');
@@ -39,15 +49,27 @@ router.get('/api/creatures', (req, res) => {
     });
 });
 
-// Get a specific creature for a user
-router.get('/api/creature/:userId/:name', (req, res) => {
-    const { userId, name } = req.params;
-    Creature.getCreature(userId, name, (err, creature) => {
+// Delete a creature
+router.delete('/api/creature/:id', (req, res) => {
+    const { id } = req.params;
+    deleteCreature(id, (err) => {
         if (err) {
-            console.error('Error getting creature:', err);
-            return res.status(500).send('Error getting creature');
+            console.error('Error deleting creature:', err);
+            return res.status(500).send('Error deleting creature');
         }
-        res.status(200).json(creature);
+        res.status(200).json({ message: 'Creature deleted successfully' });
+    });
+});
+
+// Delete all creatures for a user
+router.delete('/api/creatures/:userId', (req, res) => {
+    const { userId } = req.params;
+    deleteAllCreaturesForUser(userId, (err) => {
+        if (err) {
+            console.error('Error deleting creatures:', err);
+            return res.status(500).send('Error deleting creatures');
+        }
+        res.status(200).json({ message: 'All creatures deleted successfully' });
     });
 });
 

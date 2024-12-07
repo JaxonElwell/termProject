@@ -17,7 +17,7 @@ const SideBar = () => {
         <SideBarIcon icon={<BsFillCollectionFill size="28" />} text='Collection' onClick={() => navigate('/collection')} />
         <Divider />
         <SideBarIcon icon={<IoPersonSharp size="28" />} text='Profile' onClick={() => navigate('/profile')} />
-        <SideBarIcon icon={<BsGearFill size="28" />} text='Settings' onClick={() => navigate('/login')} />
+        {/* <SideBarIcon icon={<BsGearFill size="28" />} text='Settings' onClick={() => navigate('/login')} /> */}
     </div>
   );
 };

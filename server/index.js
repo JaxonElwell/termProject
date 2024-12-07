@@ -9,6 +9,9 @@ app.use(express.json());
 const creatureRoutes = require('./Routes/creatureRoutes');
 app.use(creatureRoutes);
 
+const userRoutes = require('./Routes/userRoutes');
+app.use('/api', userRoutes);
+
 // Connect to database
 const db = new sqlite3.Database('./database.db', (err) => {
     if (err) {

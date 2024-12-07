@@ -20,7 +20,6 @@ export const addCreature = async (data) => {
     return await response.json(); // Safely parse JSON response
 };
 
-
 // Get a creature
 export const getCreature = async (userId, name) => {
     const response = await fetch(`${API_BASE_URL}/api/creature/${userId}/${name}`);
@@ -39,7 +38,6 @@ export const getCreatures = async (userId) => {
     return await response.json();
 };
 
-
 // Get all creatures regardless of user
 export const getCreaturesAll = async () => {
     const response = await fetch(`${API_BASE_URL}/api/creatures`);
@@ -47,6 +45,40 @@ export const getCreaturesAll = async () => {
         throw new Error(`Failed to get creatures: ${response.statusText}`);
     }
     return await response.json();
+};
+
+// Delete a creature
+export const deleteCreature = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/api/creature/${id}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to delete creature: ${response.statusText}`);
+    }
+    // Handle plain text response
+    const text = await response.text();
+    try {
+        return JSON.parse(text);
+    } catch (err) {
+        return { message: text };
+    }
+};
+
+// Delete all creatures for a specific user
+export const deleteAllCreaturesForUser = async (userId) => {
+    const response = await fetch(`${API_BASE_URL}/api/creatures/${userId}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to delete creatures: ${response.statusText}`);
+    }
+    // Handle plain text response
+    const text = await response.text();
+    try {
+        return JSON.parse(text);
+    } catch (err) {
+        return { message: text };
+    }
 };
 
 // Login

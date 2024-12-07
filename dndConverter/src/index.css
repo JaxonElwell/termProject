@@ -277,6 +277,47 @@
     cursor: pointer;
   }
 
+  @layer utilities {
+    /* Define fade-in and slide-down animation */
+    @keyframes fadeInSlideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* Create a Tailwind utility class */
+    .animate-fadeInSlideDown {
+      animation: fadeInSlideDown 1s ease-in-out;
+    }
+  }
+
+  @layer utilities {
+    /* Keyframes for fading in and out */
+    @keyframes fadeInOut {
+      0%, 20% {
+        opacity: 0;
+      }
+      30%, 70% {
+        opacity: 1;
+      }
+      80%, 100% {
+        opacity: 0;
+      }
+    }
+  
+    /* Utility class for the fade-in-out animation */
+    .animate-fadeInOut {
+      animation: fadeInOut 10s infinite ease-in-out;
+    }
+  }
+  
+  
+
   @tailwind utilities;
 
   ::-webkit-scrollbar {

@@ -1,8 +1,9 @@
 import React from 'react';
+import { FaTrash } from 'react-icons/fa';
 
-const CreatureCard = ({ creature, onClick }) => {
+const CreatureCard = ({ creature, onClick, onDelete }) => {
   return (
-    <div onClick={onClick} className='card m-4 p-4 bg-gray-800 text-white rounded-lg shadow-md w-full sm:w-2/3 lg:w-1/4 cursor-pointer'>
+    <div onClick={onClick} className='card m-4 p-4 bg-gray-800 text-white rounded-lg shadow-md w-full sm:w-2/3 lg:w-1/4 cursor-pointer relative'>
       <h2 className='text-xl font-bold text-cyan-500 mb-2'>{creature.name}</h2>
       <p className='text-sm font-semibold text-gray-500'>{creature.size}</p>
       <hr className='border-t-2 border-gray-300 my-2' />
@@ -25,10 +26,17 @@ const CreatureCard = ({ creature, onClick }) => {
       <hr className='border-t-2 border-gray-300 my-2' />
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
         <p><strong>Challenge Rating:</strong> {creature.cr}</p>
-        <p><strong>Proficiency Bonus:</strong> {creature.proficiencyBonus}</p> {/* Ensure this matches the property name */}
+        <p><strong>Proficiency Bonus:</strong> {creature.proficiencyBonus}</p>
       </div>
       <hr className='border-t-2 border-gray-300 my-2' />
       <p><strong>Notes:</strong> {creature.notes.length > 100 ? `${creature.notes.substring(0, 100)}...` : creature.notes}</p>
+      <FaTrash
+        className='absolute top-4 right-4 text-red-500 cursor-pointer'
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent triggering the card click
+          onDelete(creature.id);
+        }}
+      />
     </div>
   );
 };
