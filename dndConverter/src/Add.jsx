@@ -80,7 +80,7 @@ const Add = () => {
 
   const handleSave = async (creature) => {
     const data = {
-      userId: 1, // Replace with the actual user ID
+      userId: localStorage.getItem('userId'),
       name: creature.name,
       cr: creature.cr,
       ac: creature.ac,

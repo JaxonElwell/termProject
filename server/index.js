@@ -1,10 +1,13 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
-
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+
+const creatureRoutes = require('./Routes/creatureRoutes');
+app.use(creatureRoutes);
 
 // Connect to database
 const db = new sqlite3.Database('./database.db', (err) => {
@@ -106,6 +109,7 @@ app.post('/api/register', (req, res) => {
         });
     });
 });
+
 
 // Start server
 const PORT = 5000;

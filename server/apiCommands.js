@@ -42,33 +42,20 @@ function getCreature(userId, name, callback) {
 }
 
 // Create a creature
-// name, cr, ac, speed, clmbSpeed, flySpeed, str, dex, con, int, wis, cha, notes
-function createCreature(userId, name, cr, ac, speed, clmbSpeed, flySpeed, str, dex, con, int, wis, cha, notes, callback) {
+function createCreature(userId, name, cr, ac, hp, speed, climbSpeed, flySpeed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes, callback) {
     db.run(`
-        INSERT INTO creatures (user_id, name, cr, ac, speed, clmbSpeed, flySpeed, str, dex, con, int, wis, cha, notes) 
-        VALUES (?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?)`,
-        [userId, name, cr, ac, speed, clmbSpeed, flySpeed, str, dex, con, int, wis, cha, notes],
+        INSERT INTO creatures (user_id, name, cr, ac, hp, speed, climb_speed, fly_speed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [userId, name, cr, ac, hp, speed, climbSpeed, flySpeed, strength, dexterity, constitution, intelligence, wisdom, charisma, notes],
         (err) => {
             if (err) {
-                console.error("Error creating creature", err.message);
+                console.error("Error inserting creature", err.message);
                 callback(err);
             } else {
                 callback(null);
             }
-        });
+        }
+    );
 }
 
 // Update a creature
@@ -135,6 +122,18 @@ function getUser(username, password, callback) {
     });
 }
 
+// Get a user by ID
+function getUserById(userId, callback) {
+    db.get(`SELECT username FROM users WHERE id = ?`, [userId], (err, row) => {
+        if (err) {
+            console.error("Error getting user", err.message);
+            callback(err);
+        } else {
+            callback(null, row);
+        }
+    });
+}
+
 module.exports = {
     getCreatures,
     getCreature,
@@ -143,5 +142,6 @@ module.exports = {
     updateCreature,
     deleteCreature,
     createUser,
+    getUserById,
     getUser
 };

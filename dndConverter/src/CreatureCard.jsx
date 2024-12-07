@@ -25,7 +25,7 @@ const CreatureCard = ({ creature, onClick }) => {
       <hr className='border-t-2 border-gray-300 my-2' />
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
         <p><strong>Challenge Rating:</strong> {creature.cr}</p>
-        <p><strong>Proficiency Bonus:</strong> {creature.proficiency_bonus}</p>
+        <p><strong>Proficiency Bonus:</strong> {creature.proficiencyBonus}</p> {/* Ensure this matches the property name */}
       </div>
       <hr className='border-t-2 border-gray-300 my-2' />
       <p><strong>Notes:</strong> {creature.notes.length > 100 ? `${creature.notes.substring(0, 100)}...` : creature.notes}</p>

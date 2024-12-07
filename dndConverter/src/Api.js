@@ -4,18 +4,22 @@ const API_BASE_URL = 'http://localhost:5000';
 
 // Add a creature
 export const addCreature = async (data) => {
-    const response = await fetch(`${API_BASE_URL}/api/creature`, {
+    const response = await fetch('http://localhost:5000/api/creature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     });
+
     if (!response.ok) {
-        throw new Error(`Failed to add creature: ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`Failed to add creature: ${errorText}`);
     }
-    return await response.json();
+
+    return await response.json(); // Safely parse JSON response
 };
+
 
 // Get a creature
 export const getCreature = async (userId, name) => {
@@ -26,7 +30,7 @@ export const getCreature = async (userId, name) => {
     return await response.json();
 };
 
-// Get all creatures
+// Get all creatures for a specific user
 export const getCreatures = async (userId) => {
     const response = await fetch(`${API_BASE_URL}/api/creature/${userId}`);
     if (!response.ok) {
@@ -34,6 +38,7 @@ export const getCreatures = async (userId) => {
     }
     return await response.json();
 };
+
 
 // Get all creatures regardless of user
 export const getCreaturesAll = async () => {

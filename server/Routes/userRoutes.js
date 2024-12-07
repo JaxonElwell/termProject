@@ -18,4 +18,19 @@ router.post('/api/login', (req, res) => {
   });
 });
 
+// Get user by ID
+router.get('/api/user/:id', (req, res) => {
+  const userId = req.params.id;
+  getUserById(userId, (err, user) => {
+    if (err) {
+      console.error('Error getting user:', err);
+      return res.status(500).send('Error getting user');
+    }
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.json({ username: user.username });
+  });
+});
+
 module.exports = router;
