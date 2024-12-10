@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import TopNavigation from './TopNavigation';
-import { addCreature } from './Api'; // Import the addCreature function
+import React, { useState } from 'react';
+import { addCreature } from './Api'; // Ensure the import path is correct
 
 const Add = () => {
   const [name, setName] = useState('');
@@ -22,6 +22,7 @@ const Add = () => {
     notes: ''
   });
   const [convertedCreatures, setConvertedCreatures] = useState([]);
+  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,31 +57,62 @@ const Add = () => {
     });
   };
 
+  const hpConv = (hp) => {
+    // Round up to nearest integer
+    return Math.ceil(hp * 1.49);
+  };
+
+  const acConv = (ac, cr) => {
+    const finalAC = Number(ac) + 4 + Number(cr); // Convert inputs to numbers
+    return finalAC;
+  };
+  
+
   const convertToPf2e = (name, stats) => {
-    // This is a placeholder implementation
+    // Convert CR
+    let convertedCr;
+    switch (stats.cr) {
+      case "1/2":
+        convertedCr = 2;
+        break;
+      case "1/4":
+        convertedCr = 1;
+        break;
+      case "1/8":
+        convertedCr = 0;
+        break;
+      case "0":
+        convertedCr = -1;
+        break;
+      default:
+        convertedCr = parseInt(stats.cr) + 2;
+        break;
+    }
+
     return {
       name,
       size: stats.size,
-      ac: stats.ac,
-      hp: stats.hp,
+      ac: acConv(stats.ac, convertedCr), // Convert AC
+      hp: hpConv(stats.hp), // Convert HP
       speed: stats.speed,
       climbSpeed: stats.climbSpeed,
       flySpeed: stats.flySpeed,
       proficiencyBonus: stats.proficiencyBonus,
-      strength: stats.strength * 2,
-      dexterity: stats.dexterity * 2,
-      constitution: stats.constitution * 2,
-      intelligence: stats.intelligence * 2,
-      wisdom: stats.wisdom * 2,
-      charisma: stats.charisma * 2,
-      cr: stats.cr,
+      strength: stats.strength,
+      dexterity: stats.dexterity,
+      constitution: stats.constitution,
+      intelligence: stats.intelligence,
+      wisdom: stats.wisdom,
+      charisma: stats.charisma,
+      cr: convertedCr,
       notes: stats.notes
     };
   };
 
   const handleSave = async (creature) => {
+    const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
     const data = {
-      userId: localStorage.getItem('userId'),
+      userId, // Include the userId in the data
       name: creature.name,
       cr: creature.cr,
       ac: creature.ac,
@@ -100,6 +132,8 @@ const Add = () => {
     try {
       await addCreature(data);
       console.log('Creature saved successfully');
+      setShowPopup(true); // Show the popup
+      setTimeout(() => setShowPopup(false), 3000); // Hide the popup after 3 seconds
     } catch (error) {
       console.error('Error saving creature:', error);
     }
@@ -123,7 +157,7 @@ const Add = () => {
               />
             </div>
             <div>
-              <label className='block text-sm font-semibold text-cyan-500'>Size:</label>
+              <label className='block text-sm font-semibold text-gray-500'>Size:</label>
               <input
                 type="text"
                 name="size"
@@ -337,6 +371,13 @@ const Add = () => {
           </div>
         )}
       </div>
+      {showPopup && (
+        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-4 rounded-md shadow-md'>
+            <p className='text-lg font-semibold text-green-600'>Creature saved successfully!</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
