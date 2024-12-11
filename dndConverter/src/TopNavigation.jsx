@@ -49,10 +49,6 @@ const TopNavigation = () => {
   return (
     <div className='top-navigation'>
       <Title />
-      {/* <Search />
-      <ThemeIcon />
-      <BellIcon />
-      <UserCircle /> */}
     </div>
   );
 };

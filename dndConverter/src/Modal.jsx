@@ -9,7 +9,6 @@ const Modal = ({ creature, onClose }) => {
         <span className="close" onClick={onClose}>&times;</span>
         <h2>{creature.name}</h2>
         <p>{creature.description}</p>
-        {/* Add more detailed information here */}
       </div>
     </div>
   );
